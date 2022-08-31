@@ -43,6 +43,7 @@ local function pulse()
 
 	if response:sub(1,1) == "2" then
 		xp_table = {}
+		curr_xp = 0
 	end
 end
 
