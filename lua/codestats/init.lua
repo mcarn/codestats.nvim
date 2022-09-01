@@ -58,7 +58,7 @@ return {
     pulse = pulse,
     gather_xp = gather_xp,
     current_xp = current_xp,
-	current_xp_formatted=current_xp_formatted,
+    current_xp_formatted = current_xp_formatted,
     CODESTATS_VERSION = CODESTATS_VERSION,
     CODESTATS_API_URL = CODESTATS_API_URL,
     CODESTATS_API_KEY = CODESTATS_API_KEY,
