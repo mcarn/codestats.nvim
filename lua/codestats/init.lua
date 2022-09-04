@@ -1,9 +1,11 @@
 local languages = require("codestats.languages")
-local curl = require("codestats.curl")
+local req = require("codestats.curl")
 
 CODESTATS_VERSION = "0.3.0"
 CODESTATS_API_URL = vim.env.CODESTATS_API_URL or "https://codestats.net/api"
 CODESTATS_API_KEY = vim.env.CODESTATS_API_KEY
+
+USERNAME = vim.env.CODESTATS_USERNAME or "mcarnerm"
 
 local xp_table = {}
 local curr_xp = 0
@@ -38,7 +40,7 @@ local function pulse()
 
     payload = payload:sub(1, -2) .. payload_end
 
-    local response = curl(payload)
+    local response = req.pulse(payload)
 
     if response:sub(1, 1) == "2" then
         xp_table = {}
@@ -54,12 +56,18 @@ local function current_xp_formatted()
     return "CS::" .. tostring(curr_xp)
 end
 
+local function current_stats()
+    return req.fetch(USERNAME)
+end
+
 return {
     pulse = pulse,
     gather_xp = gather_xp,
     current_xp = current_xp,
     current_xp_formatted = current_xp_formatted,
+    current_stats = current_stats,
     CODESTATS_VERSION = CODESTATS_VERSION,
     CODESTATS_API_URL = CODESTATS_API_URL,
     CODESTATS_API_KEY = CODESTATS_API_KEY,
+    USERNAME = USERNAME,
 }

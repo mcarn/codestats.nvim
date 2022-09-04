@@ -1,5 +1,8 @@
-local function curl(payload)
-	local cmd = { 
+local curl = require("plenary.curl")
+local M = {}
+
+function M.pulse(payload)
+	local cmd = {
 		'curl',
 		'--header', 'Content-Type: application/json',
 		'--header', 'X-API-Token: ' .. CODESTATS_API_KEY,
@@ -15,4 +18,12 @@ local function curl(payload)
 	return vim.fn.system(cmd)
 end
 
-return curl
+function M.fetch(username)
+	local url = CODESTATS_API_URL .. '/users/' .. username
+	local method = 'get'
+	local accept = 'application/json'
+	local response = 	curl.request(url, method,accept)
+	print(response)
+	return response
+end
+return M
