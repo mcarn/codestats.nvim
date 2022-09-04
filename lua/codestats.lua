@@ -55,7 +55,7 @@ end
 M.setup = function(options)
     local codestats_api_key = vim.env.CODESTATS_API_KEY or options.key
     if codestats_api_key == nil then
-        vim.cmd('echo "codestats.nvim: Please set $CODESTATS_API_KEY environment variable!"')
+        vim.cmd('echo "codestats.nvim: Please set $CODESTATS_API_KEY environment variable or set it in the config!"')
         return
     end
     local username = vim.env.CODESTATS_USERNAME or options.username
