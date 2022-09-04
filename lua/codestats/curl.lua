@@ -23,7 +23,6 @@ function M.fetch(username)
 	local method = 'get'
 	local accept = 'application/json'
 	local response = 	curl.request(url, method,accept)
-	print(response)
 	return response
 end
 return M
