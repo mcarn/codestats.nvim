@@ -36,7 +36,7 @@ M.pulse = function()
 
     payload = payload:sub(1, -2) .. payload_end
 
-    local response = curl(M.config.key, M.config.version, M.config.url, payload)
+    local response = curl.post(M.config.key, M.config.version, M.config.url, payload)
 
     if response:sub(1, 1) == "2" then
         xp_table = {}
