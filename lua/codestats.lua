@@ -90,13 +90,13 @@ M.startup = function()
             M.gather_xp(vim.api.nvim_buf_get_option(0, "filetype"), 1)
         end,
     })
--- Not sure if needed
---    vim.api.nvim_create_autocmd({ "BufWrite", "BufLeave" }, {
---        group = codestats_group,
---        callback = function()
---            M.pulse()
---        end,
---    })
+    -- Not sure if needed
+    --    vim.api.nvim_create_autocmd({ "BufWrite", "BufLeave" }, {
+    --        group = codestats_group,
+    --        callback = function()
+    --            M.pulse()
+    --        end,
+    --    })
 end
 
 return M
