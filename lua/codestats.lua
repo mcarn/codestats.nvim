@@ -81,7 +81,7 @@ M.print = function()
 end
 
 M.fetch = function()
-    curl.fetch(M.config.version, M.config.url, "mcarnerm")
+    curl.fetch(M.config.version, M.config.url, M.config.username)
 end
 
 M.startup = function()
