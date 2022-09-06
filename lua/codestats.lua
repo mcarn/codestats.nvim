@@ -74,6 +74,16 @@ M.setup = function(options)
     M.startup()
 end
 
+M.print = function()
+    for filetype, xp in pairs(xp_table) do
+        print(filetype, xp)
+    end
+end
+
+M.fetch = function()
+    curl.fetch(M.config.version, M.config.url, "mcarnerm")
+end
+
 M.startup = function()
     local codestats_group = vim.api.nvim_create_augroup("codestats", { clear = true })
 
