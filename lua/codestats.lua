@@ -1,10 +1,14 @@
-local request = require("codestats.curl")
+local request = require("codestats.request")
 local languages = require("codestats.languages")
 
 local M = {}
 
 local xp_table = {}
 local curr_xp = 0
+local machines = {}
+local total_exp = 0
+local langs = {}
+local dates = {}
 
 local base = {
     version = "0.3.0",
@@ -86,7 +90,8 @@ M.print = function()
 end
 
 M.fetch = function()
-    request.fetch(M.config.version, M.config.url, M.config.username)
+    local res = request.fetch(M.config.version, M.config.url, M.config.username)
+    return vim.json.decode(res)
 end
 
 M.startup = function()
