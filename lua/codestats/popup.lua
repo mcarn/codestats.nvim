@@ -8,8 +8,8 @@ end
 local M = {}
 
 M.create_default_popup = function()
-    local win_id = popup.create({ "menu 1", "menu 2" })
-    print(win_id)
+--    local win_id = popup.create({ "menu 1", "menu 2" })
+ --   print(win_id)
 end
 
 return M
