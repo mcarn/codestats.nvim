@@ -22,6 +22,7 @@ use("mcarn/codestats.nvim")
 ```
 
 ### [Lazy](https://github.com/folke/lazy.nvim)
+
 ```lua
 local plugins = {"mcarn/codestats.nvim"}
 require("lazy").setup(plugins, opts)
@@ -50,6 +51,7 @@ echo "export CODESTATS_API_KEY=SFMyNTY.OEotWWdnPT0jI01qaz0.X0wVEZquh8Ogau1iTtBih
 ```
 
 You can also set `CODESTATS_API_URL` if you want to use a different instance, eg.
+
 ```sh
 set -Ux CODESTATS_API_URL "https://beta.codestats.net/api"
 ```
