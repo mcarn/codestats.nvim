@@ -12,18 +12,6 @@ M.fetch = function(version, url, username)
     return vim.json.decode(res.body)
 end
 
-local function post(key, version, url, payload)
-    local res = curl.post(url .. "/my/pulses", {
-        accept = "application/json",
-        headers = {
-            ["Content-Type"] = "application/json",
-            ["X-API-Token"] = key,
-        },
-        body = payload,
-    })
-    return vim.json.decode(res.body)
-end
-
 M.curl = function(key, version, url, payload)
     local res = curl.post(url .. "/my/pulses", {
         accept = "application/json",
