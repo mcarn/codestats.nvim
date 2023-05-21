@@ -26,7 +26,7 @@ M.gather_xp = function(filetype, xp_amount)
     curr_xp = xp_table[filetype]
 end
 
-M.fetch_data = function()
+M.fetch = function()
     local res = request.fetch(M.config.version, M.config.url, M.config.username)
 
     local json = vim.json.decode(res)
@@ -54,11 +54,11 @@ M.pulse = function(quit)
     payload = payload:sub(1, -2) .. payload_end
 
     if quit then
-        request.curl(M.config.key, M.config.version, M.config.url, payload)
+        request.push(M.config.key, M.config.version, M.config.url, payload)
         return
     end
 
-    local response = request.curl(M.config.key, M.config.version, M.config.url, payload)
+    local response = request.push(M.config.key, M.config.version, M.config.url, payload)
 
     if response:sub(1, 1) == "2" then
         xp_table = {}
