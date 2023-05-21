@@ -12,28 +12,28 @@ M.fetch = function(version, url, username)
     return vim.json.decode(res.body)
 end
 
-M.curl = function(key, version, url, payload)
-    local cmd = {
-        "curl",
-        "--header",
-        "Content-Type: application/json",
-        "--header",
-        "X-API-Token: " .. key,
-        "--user-agent",
-        "codestats.nvim/" .. version,
-        "--data",
-        payload,
-        "--request",
-        "POST",
-        "--silent",
-        "--output",
-        "/dev/null",
-        "--write-out",
-        "%{http_code}",
-        url .. "/my/pulses",
-    }
+local function post(key, version, url, payload)
+    local res = curl.post(url .. "/my/pulses", {
+        accept = "application/json",
+        headers = {
+            ["Content-Type"] = "application/json",
+            ["X-API-Token"] = key,
+        },
+        body = payload,
+    })
+    return vim.json.decode(res.body)
+end
 
-    return vim.fn.system(cmd)
+M.curl = function(key, version, url, payload)
+    local res = curl.post(url .. "/my/pulses", {
+        accept = "application/json",
+        headers = {
+            ["Content-Type"] = "application/json",
+            ["X-API-Token"] = key,
+        },
+        body = payload,
+    })
+    return vim.json.decode(res.body)
 end
 
 return M
