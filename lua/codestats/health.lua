@@ -1,4 +1,7 @@
-local health = vim.health or require("health")
+local start = vim.health.start or vim.health.report_start
+local ok = vim.health.ok or vim.health.report_ok
+local warn = vim.health.warn or vim.health.report_warn
+local error = vim.health.error or vim.health.report_error
 
 local key = "key"
 local username = "username"
@@ -30,19 +33,19 @@ end
 local M = {}
 
 function M.check()
-    health.start("codestats report")
+    start("codestats.nvim")
 
     local status = check_setup()
 
     if empty(status) then
-        health.ok("Setup is correct")
+        ok("Setup is correct")
     else
         if contains(status, key) then
-            health.error("Missing CODESTATS_API_KEY")
+            error("Missing CODESTATS_API_KEY")
         end
 
         if contains(status, username) then
-            health.error("Missing CODESTATS_USERNAME")
+            error("Missing CODESTATS_USERNAME")
         end
     end
 end
