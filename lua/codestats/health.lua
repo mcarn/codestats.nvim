@@ -1,7 +1,5 @@
 local health = vim.health or require("health")
 
-local M = {}
-
 local key = "key"
 local username = "username"
 
@@ -28,6 +26,8 @@ end
 local function empty(table)
     return next(table)
 end
+
+local M = {}
 
 function M.check()
     health.start("codestats report")
