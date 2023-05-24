@@ -28,7 +28,7 @@ local function contains(table, key)
 end
 
 local function empty(table)
-    return next(table)
+    return next(table) == nil
 end
 
 local M = {}
