@@ -1,4 +1,4 @@
-local h = vim.health or require "health"
+local h = vim.health or require("health")
 
 local health = {
     start = h.start,
