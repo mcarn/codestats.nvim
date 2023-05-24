@@ -1,12 +1,4 @@
-local h = vim.health or require("health")
-
-local health = {
-    start = h.start,
-    ok = h.ok,
-    warn = h.warn,
-    error = h.error,
-    info = h.info,
-}
+local health = vim.health or require("health")
 
 local M = {}
 
