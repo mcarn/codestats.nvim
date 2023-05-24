@@ -1,12 +1,14 @@
-local M = {}
+local h = vim.health or require "health"
 
 local health = {
-    start = vim.health.start,
-    ok = vim.health.ok,
-    warn = vim.health.warn,
-    error = vim.health.error,
-    info = vim.health.info,
+    start = h.start,
+    ok = h.ok,
+    warn = h.warn,
+    error = h.error,
+    info = h.info,
 }
+
+local M = {}
 
 local key = "key"
 local username = "username"
