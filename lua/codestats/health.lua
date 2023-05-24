@@ -49,7 +49,6 @@ function M.check()
             error("Missing CODESTATS_USERNAME")
         end
     end
-    info("Finished healthcheck")
 end
 
 return M
