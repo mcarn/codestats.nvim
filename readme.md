@@ -30,6 +30,19 @@ require("lazy").setup(plugins, opts)
 
 ## Configuration
 
+```lua
+local present, codestats = pcall(require, "codestats")
+
+if not present then
+    return
+end
+
+codestats.setup({
+    key: "CODESTATS_API_KEY",
+    username: "username"
+})
+```
+
 Set the `CODESTATS_API_KEY` environment variable to your CodeStats token.
 
 ### Fish
