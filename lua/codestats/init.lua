@@ -1,7 +1,7 @@
 local request = require("codestats.request")
 local languages = require("codestats.languages")
 local popup = require("codestats.popup")
-local base = require'codestats.base'
+local base = require("codestats.base")
 
 local M = {}
 
@@ -108,7 +108,7 @@ M.startup = function()
 end
 
 M.popup = function()
-popup.create_default_popup()
+    popup.create_default_popup()
 end
 
 return M
