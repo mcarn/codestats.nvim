@@ -10,29 +10,29 @@ local machines = {}
 local langs = {}
 local dates = {}
 
-local function fetch(url, username)
+local function fetch(username)
     local res = request.fetch(username)
 
-    local json = vim.json.decode(res)
-    total_xp = json["total_xp"]
-    new_xp = json["new_xp"]
-    machines = json["machines"]
-    langs = json["languages"]
-    dates = json["dates"]
+    total_xp = res["total_xp"]
+    new_xp = res["new_xp"]
+    machines = res["machines"]
+    langs = res["languages"]
+    dates = res["dates"]
 end
 
 local function create_default_popup()
-    fetch(base.url, "mcarnerm")
+    fetch("mcarnerm")
     local result = {}
-    table.insert(result, "Total XP")
-    table.insert(result, total_xp)
-    table.insert(result, "New XP")
-    table.insert(result, new_xp)
+    table.insert(result, string.format("Total XP: %s", total_xp))
+    table.insert(result, string.format("New XP: %s", new_xp))
 
-    local win_id = popup.create(
-        result,
-        { title = "Code::Stats", relative = "editor", col = 0, minwidth = 20, border = true, highlight = PopupColor }
-    )
+    local win_id = popup.create(result, {
+        title = "Code::Stats",
+        relative = "editor",
+        col = 0,
+        minwidth = 20,
+        border = true,
+    })
     print(win_id)
 end
 
