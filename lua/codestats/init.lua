@@ -1,21 +1,12 @@
 local request = require("codestats.request")
 local languages = require("codestats.languages")
-local window = require("codestats.window")
+local popup = require("codestats.popup")
+local base = require'codestats.base'
 
 local M = {}
 
 local curr_xp = 0
-local total_xp = 0
-local new_xp = 0
 local xp_table = {}
-local machines = {}
-local langs = {}
-local dates = {}
-
-local base = {
-    version = "0.3.0",
-    url = "https://codestats.net/api",
-}
 
 M.gather_xp = function(filetype, xp_amount)
     if filetype:gsub("%s+", "") == "" then
@@ -24,17 +15,6 @@ M.gather_xp = function(filetype, xp_amount)
 
     xp_table[filetype] = (xp_table[filetype] or 0) + xp_amount
     curr_xp = xp_table[filetype]
-end
-
-M.fetch = function()
-    local res = request.fetch(M.config.version, M.config.url, M.config.username)
-
-    local json = vim.json.decode(res)
-    total_xp = json["total_xp"]
-    new_xp = json["new_xp"]
-    machines = json["machines"]
-    langs = json["languages"]
-    dates = json["dates"]
 end
 
 M.pulse = function(quit)
@@ -126,7 +106,9 @@ M.startup = function()
     --        end,
     --    })
 end
+
 M.popup = function()
-    window.create_default_popup()
+popup.create_default_popup()
 end
+
 return M

@@ -1,4 +1,7 @@
 local curl = require("plenary.curl")
+local base = require'codestats.base'
+local  version = base.version
+local url = base.url
 
 local M = {}
 
