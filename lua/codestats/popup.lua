@@ -1,7 +1,8 @@
 local popup = require("plenary.popup")
+local request = require"codestats.request"
 
 local function create_default_popup()
-    local win_id = popup.create(
+    local win_id, popup_state = popup.create(
         { "menu 1", "menu 2" },
         { title = "Code::Stats", relative = "editor", col = 0, minwidth = 20, border = true, highlight = PopupColor }
     )
