@@ -11,7 +11,7 @@ local langs = {}
 local dates = {}
 
 local function fetch(url, username)
-    local res = request.fetch(url, username)
+    local res = request.fetch(username)
 
     local json = vim.json.decode(res)
     total_xp = json["total_xp"]
