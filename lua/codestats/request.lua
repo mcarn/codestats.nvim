@@ -1,11 +1,11 @@
 local curl = require("plenary.curl")
-local base = require'codestats.base'
-local  version = base.version
+local base = require"codestats.base"
+
 local url = base.url
 
 local M = {}
 
-M.fetch = function(version, url, username)
+M.fetch = function(username)
     local res = curl.get(url .. "/users/" .. username, {
         accept = "application/json",
         headers = {
@@ -15,7 +15,7 @@ M.fetch = function(version, url, username)
     return vim.json.decode(res.body)
 end
 
-M.push = function(key, version, url, payload)
+M.push = function(key, payload)
     local res = curl.post(url .. "/my/pulses", {
         accept = "application/json",
         headers = {
