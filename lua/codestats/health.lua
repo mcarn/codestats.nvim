@@ -4,31 +4,22 @@ local info = vim.health.info or vim.health.report_info
 local warn = vim.health.warn or vim.health.report_warn
 local error = vim.health.error or vim.health.report_error
 
-local key = "key"
-local username = "username"
-
-local function check_setup()
-    local opts = {}
-
+local function check_username()
     local codestats_api_key = vim.env.CODESTATS_API_KEY
     if codestats_api_key == nil then
-        table.insert(opts, key)
+        error("Missing CODESTATS_API_KEY")
+        return false
     end
+    return true
+end
 
+local function check_key()
     local username = vim.env.CODESTATS_USERNAME
     if username == nil then
-        table.insert(opts, username)
+        error("Missing CODESTATS_USERNAME")
+        return false
     end
-
-    return opts
-end
-
-local function contains(table, key)
-    return table[key] ~= nil
-end
-
-local function empty(table)
-    return next(table) == nil
+    return true
 end
 
 local M = {}
@@ -36,18 +27,11 @@ local M = {}
 function M.check()
     start("codestats.nvim")
 
-    local status = check_setup()
+    local usernameStatus = check_username()
+    local keyStatus = check_key()
 
-    if empty(status) then
+    if keyStatus and usernameStatus then
         ok("Setup is correct")
-    else
-        if contains(status, key) then
-            error("Missing CODESTATS_API_KEY")
-        end
-
-        if contains(status, username) then
-            error("Missing CODESTATS_USERNAME")
-        end
     end
 end
 
