@@ -1,5 +1,5 @@
 local curl = require("plenary.curl")
-local base = require"codestats.base"
+local base = require("codestats.base")
 
 local url = base.url
 
