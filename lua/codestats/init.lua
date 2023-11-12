@@ -85,6 +85,10 @@ end
 M.startup = function()
     local codestats_group = vim.api.nvim_create_augroup("codestats", { clear = true })
 
+    vim.api.nvim_create_user_command("Codestats", function(opts)
+        popup.create_default_popup(M.config.username)
+    end, { nargs = 1 })
+
     vim.api.nvim_create_autocmd("VimLeavePre", {
         group = codestats_group,
         callback = function()
@@ -105,10 +109,6 @@ M.startup = function()
     --            M.pulse(false)
     --        end,
     --    })
-end
-
-M.popup = function()
-    popup.create_default_popup()
 end
 
 return M
