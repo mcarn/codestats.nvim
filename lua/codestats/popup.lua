@@ -72,7 +72,7 @@ local function create_window()
     })
 end
 
-function M.dcreate_default_popup(username)
+function M.create_default_popup(username)
     fetch(username)
 
     create_window()
