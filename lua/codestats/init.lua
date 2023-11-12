@@ -87,7 +87,7 @@ M.startup = function()
 
     vim.api.nvim_create_user_command("Codestats", function(opts)
         popup.create_default_popup(M.config.username)
-    end, { })
+    end, {})
 
     vim.api.nvim_create_autocmd("VimLeavePre", {
         group = codestats_group,
