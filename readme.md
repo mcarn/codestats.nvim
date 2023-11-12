@@ -69,6 +69,13 @@ You can also set `CODESTATS_API_URL` if you want to use a different instance, eg
 set -Ux CODESTATS_API_URL "https://beta.codestats.net/api"
 ```
 
+
+## Usage
+
+### Commmands
+
+Use `:Codestats` to open a popup window exposing your api response information.
+
 ### Lualine
 
 Call `get_codestats` in any of the sections.

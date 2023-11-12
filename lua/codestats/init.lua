@@ -1,5 +1,6 @@
 local request = require("codestats.request")
 local languages = require("codestats.languages")
+local popup = require("codestats.popup")
 local base = require("codestats.base")
 
 local M = {}
@@ -83,6 +84,10 @@ end
 
 M.startup = function()
     local codestats_group = vim.api.nvim_create_augroup("codestats", { clear = true })
+
+    vim.api.nvim_create_user_command("Codestats", function(opts)
+        popup.create_default_popup(M.config.username)
+    end, {})
 
     vim.api.nvim_create_autocmd("VimLeavePre", {
         group = codestats_group,
