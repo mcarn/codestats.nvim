@@ -67,7 +67,7 @@ local function create_window()
         noremap = true,
         silent = true,
         callback = function()
-            vim.vim.api.nvim_win_close(win_id, true)
+            vim.api.nvim_win_close(win_id, true)
         end,
     })
 end
