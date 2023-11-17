@@ -22,6 +22,16 @@ local function check_key()
     return true
 end
 
+local function check_plenary()
+    local popup, _ = pcall(require, "plenary.popup")
+
+    if not popup then
+        error("Missing plenary plugin")
+        return false
+    end
+    return true
+end
+
 local M = {}
 
 function M.check()
@@ -29,8 +39,8 @@ function M.check()
 
     local usernameStatus = check_username()
     local keyStatus = check_key()
-
-    if keyStatus and usernameStatus then
+    local plenary = check_plenary()
+    if keyStatus and usernameStatus and plenary then
         ok("Setup is correct")
     end
 end
