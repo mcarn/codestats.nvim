@@ -10,8 +10,7 @@ A simple [neovim](https://neovim.io) plugin for [Code::Stats](https://codestats.
 
 ## Requirements
 
-- cURL
-- neovim 0.5 or newer
+- neovim 0.12.0 or newer (uses native `vim.net.request()` API)
 
 ## Installation
 
