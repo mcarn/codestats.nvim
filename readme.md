@@ -10,8 +10,7 @@ A simple [neovim](https://neovim.io) plugin for [Code::Stats](https://codestats.
 
 ## Requirements
 
-- cURL
-- neovim 0.5 or newer
+- neovim 0.12.0 or newer (uses native `vim.net.request()` API)
 
 ## Installation
 
@@ -90,3 +89,7 @@ local function get_codestats()
 
 end
 ```
+
+## Inspiration
+
+Originally inspired by [nyaa8/codestats.nvim](https://github.com/nyaa8/codestats.nvim). This version was rewritten in Lua and migrated to use Neovim 0.12.0's native `vim.net.request()` API, removing the plenary dependency.

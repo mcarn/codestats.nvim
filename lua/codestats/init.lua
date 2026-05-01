@@ -34,13 +34,17 @@ M.pulse = function(quit)
     payload = payload:sub(1, -2) .. payload_end
 
     if quit then
-        request.push(M.config.key, payload)
+        pcall(function()
+            request.push(M.config.key, payload)
+        end)
         return
     end
 
-    local response = request.push(M.config.key, payload)
+    local ok, response = pcall(function()
+        return request.push(M.config.key, payload)
+    end)
 
-    if response:sub(1, 1) == "2" then
+    if ok and response then
         xp_table = {}
         curr_xp = 0
     end

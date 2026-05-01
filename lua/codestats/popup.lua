@@ -13,13 +13,24 @@ local dates = {}
 local M = {}
 
 local function fetch(username)
-    local res = request.fetch(username)
+    local ok, res = pcall(request.fetch, username)
+    if not ok then
+        vim.notify("Failed to fetch CodeStats data: " .. tostring(res), vim.log.levels.ERROR)
+        return false
+    end
 
-    total_xp = res["total_xp"]
-    new_xp = res["new_xp"]
-    machines = res["machines"]
-    langs = res["languages"]
-    dates = res["dates"]
+    if not res then
+        vim.notify("Empty response from CodeStats API", vim.log.levels.ERROR)
+        return false
+    end
+
+    total_xp = res["total_xp"] or 0
+    new_xp = res["new_xp"] or 0
+    machines = res["machines"] or {}
+    langs = res["languages"] or {}
+    dates = res["dates"] or {}
+
+    return true
 end
 
 local function create_window()
@@ -73,7 +84,9 @@ local function create_window()
 end
 
 function M.create_default_popup(username)
-    fetch(username)
+    if not fetch(username) then
+        return
+    end
 
     create_window()
 end
