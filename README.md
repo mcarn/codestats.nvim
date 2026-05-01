@@ -1,12 +1,14 @@
 🥬 codestats.nvim
 =================
 
-A simple [neovim](https://neovim.io) plugin for [Code::Stats](https://codestats.net).
+Neovim plugin for [Code::Stats](https://codestats.net) using native HTTP API (no external dependencies).
 
 ## Features
 
-- no need for Python, Lua is bundled with neovim!
-- compatible with [codestats-fish](https://github.com/nyaa8/codestats-fish) and [codestats-zsh](https://gitlab.com/code-stats/code-stats-zsh) (`CODESTATS_API_KEY`)
+- **Zero external dependencies**: Uses Neovim 0.12.0's native `vim.net.request()` API
+- Compatible with [codestats-fish](https://github.com/nyaa8/codestats-fish) and [codestats-zsh](https://gitlab.com/code-stats/code-stats-zsh) (`CODESTATS_API_KEY`)
+- Error handling with user notifications
+- Health checks for configuration validation
 
 ## Requirements
 
@@ -14,82 +16,92 @@ A simple [neovim](https://neovim.io) plugin for [Code::Stats](https://codestats.
 
 ## Installation
 
-### [Packer](https://github.com/wbthomason/packer.nvim)
-
-```lua
-use("mcarn/codestats.nvim")
-```
+> **Note**: Tested with [Lazy](https://github.com/folke/lazy.nvim) and `vim.pack`. Other package managers may work but are untested.
 
 ### [Lazy](https://github.com/folke/lazy.nvim)
 
 ```lua
-local plugins = {"mcarn/codestats.nvim"}
-require("lazy").setup(plugins, opts)
+{
+  "mcarn/codestats.nvim",
+  config = function()
+    require("codestats").setup({
+      key = os.getenv("CODESTATS_API_KEY"),
+      username = os.getenv("CODESTATS_USERNAME"),
+    })
+  end
+}
+```
+
+### vim.pack
+
+```bash
+git clone https://github.com/mcarn/codestats.nvim ~/.config/nvim/pack/plugins/start/codestats.nvim
+```
+
+Then in your `init.lua`:
+```lua
+require("codestats").setup({
+  key = os.getenv("CODESTATS_API_KEY"),
+  username = os.getenv("CODESTATS_USERNAME"),
+})
 ```
 
 ## Configuration
 
+Set environment variables for your CodeStats credentials:
+
+```bash
+export CODESTATS_API_KEY="your-api-key"
+export CODESTATS_USERNAME="your-username"
+```
+
+Alternatively, pass them directly to setup:
+
 ```lua
-local present, codestats = pcall(require, "codestats")
-
-if not present then
-    return
-end
-
-codestats.setup({
-    key: "CODESTATS_API_KEY",
-    username: "username"
+require("codestats").setup({
+  key = "your-api-key",
+  username = "your-username"
 })
 ```
 
-Set the `CODESTATS_API_KEY` environment variable to your CodeStats token.
+### Custom API URL
 
-### Fish
+Set `CODESTATS_API_URL` to use a different Code::Stats instance:
 
-```sh
-set -Ux "SFMyNTY.OEotWWdnPT0jI01qaz0.X0wVEZquh8Ogau1iTtBihYqqL71FD8N6p5ChQiIpaxQ"
+```bash
+export CODESTATS_API_URL="https://beta.codestats.net/api"
 ```
-
-### Zsh
-
-```sh
-echo "export CODESTATS_API_KEY=SFMyNTY.OEotWWdnPT0jI01qaz0.X0wVEZquh8Ogau1iTtBihYqqL71FD8N6p5ChQiIpaxQ" >> ~/.zshenv
-```
-
-### Bash
-
-```sh
-echo "export CODESTATS_API_KEY=SFMyNTY.OEotWWdnPT0jI01qaz0.X0wVEZquh8Ogau1iTtBihYqqL71FD8N6p5ChQiIpaxQ" >> ~/.bash_profile
-```
-
-You can also set `CODESTATS_API_URL` if you want to use a different instance, eg.
-
-```sh
-set -Ux CODESTATS_API_URL "https://beta.codestats.net/api"
-```
-
 
 ## Usage
 
-### Commmands
+### Commands
 
 Use `:Codestats` to open a popup window exposing your api response information.
+
+Run `:checkhealth codestats` to validate your setup.
 
 ### Lualine
 
 Call `get_codestats` in any of the sections.
 
 ```lua
-
 local function get_codestats()
-	local codestats = require("codestats")
-	local exp = codestats.current_xp()
-	
-	return "CS::" .. tostring(exp)
-
+  local codestats = require("codestats")
+  local exp = codestats.current_xp()
+  return "CS::" .. tostring(exp)
 end
 ```
 
-## Inspiration
+## Differences from Original
 
-Originally inspired by [nyaa8/codestats.nvim](https://github.com/nyaa8/codestats.nvim). This version was rewritten in Lua and migrated to use Neovim 0.12.0's native `vim.net.request()` API, removing the plenary dependency.
+This is a complete rewrite of [nyaa8/codestats.nvim](https://github.com/nyaa8/codestats.nvim):
+
+| Aspect | Original | This Version |
+|--------|----------|--------------|
+| **Language** | VimScript | Lua |
+| **HTTP Client** | plenary.curl | vim.net.request (native) |
+| **Dependencies** | plenary.nvim | None |
+| **Neovim Version** | 0.5+ | 0.12.0+ |
+| **Error Handling** | Basic | Comprehensive with notifications |
+| **Health Checks** | None | Yes (`:checkhealth codestats`) |
+| **Architecture** | Inline vimrc | Plugin structure |
