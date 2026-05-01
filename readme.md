@@ -89,3 +89,7 @@ local function get_codestats()
 
 end
 ```
+
+## Inspiration
+
+Originally inspired by [nyaa8/codestats.nvim](https://github.com/nyaa8/codestats.nvim). This version was rewritten in Lua and migrated to use Neovim 0.12.0's native `vim.net.request()` API, removing the plenary dependency.
