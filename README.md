@@ -98,10 +98,10 @@ This is a complete rewrite of [nyaa8/codestats.nvim](https://github.com/nyaa8/co
 
 | Aspect | Original | This Version |
 |--------|----------|--------------|
-| **Language** | VimScript | Lua |
+| **Language** | VimScript + Lua | Pure Lua |
 | **HTTP Client** | plenary.curl | vim.net.request (native) |
 | **Dependencies** | plenary.nvim | None |
 | **Neovim Version** | 0.5+ | 0.12.0+ |
 | **Error Handling** | Basic | Comprehensive with notifications |
 | **Health Checks** | None | Yes (`:checkhealth codestats`) |
-| **Architecture** | Inline vimrc | Plugin structure |
+| **Architecture** | Mixed (vimrc + plugin) | Structured plugin |
